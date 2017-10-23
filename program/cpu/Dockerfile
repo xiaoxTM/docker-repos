@@ -16,4 +16,4 @@ RUN python3 -m pip install -U pip && \
     git+https://github.com/Theano/Theano.git \
     git+https://github.com/tensorflow/tensorflow.git \
     git+https://github.com/apache/incubator-mxnet.git \
-    git+https://github.com/fchollet/keras.git \
+    git+https://github.com/fchollet/keras.git
