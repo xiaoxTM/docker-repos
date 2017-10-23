@@ -3,6 +3,7 @@ FROM debian:latest
 ENV DEBIAN_FRONTEND noninteractive
 LABEL maintainer "Renwu Gao <gilyou.public@gmail.com>"
 
+COPY ../run.sh run.sh
 RUN ./run.sh
   
 RUN python3 -m pip install -U pip && \
