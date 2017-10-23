@@ -12,7 +12,7 @@ containerid=`docker run -it --rm -d -v $SOCKET:$SOCKET -e DISPLAY:$DISPLAY $IMAG
 # certificate
 xhost +local:$containerid
 # do your work here
-docker exec -it $containerid $COMMEND
+docker exec -it $containerid $CMD
 # stop container
 docker stop $containerid
 # un-certificate for better security
