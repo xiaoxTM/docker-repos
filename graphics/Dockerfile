@@ -1,4 +1,4 @@
-FROM debian:lates
+FROM debian:latest
 ENV DEBIAN_FRONTEND noninteractive
 LABEL maintainer "Renwu Gao <gilyou.public@gmail.com>"
 
