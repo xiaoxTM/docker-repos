@@ -8,5 +8,5 @@ LABEL maintainer "Renwu Gao <gilyou.public@gmail.com>"
 RUN echo 'deb http://httpredir.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list \
     && dpkg --add-architecture i386 \
     && aptitude update \
-    && aptitude install -yq steam \
+    && aptitude install steam \
     && rm -rf /var/lib/apt/lists/*
