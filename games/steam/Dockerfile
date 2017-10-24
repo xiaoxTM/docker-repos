@@ -7,6 +7,6 @@ LABEL maintainer "Renwu Gao <gilyou.public@gmail.com>"
 #     always points to 'stable' version
 RUN echo 'deb http://httpredir.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list \
     && dpkg --add-architecture i386 \
-    && aptitude update \
-    && aptitude install steam \
+    && apt-get update \
+    && apt-get install -yq steam \
     && rm -rf /var/lib/apt/lists/*
