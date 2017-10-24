@@ -21,5 +21,5 @@ RUN echo 'deb http://deb.debian.org/debian/ stable main contrib non-free' >> /et
 
 RUN apt-get update && apt-get install -yq libgl1-nvidia-glx:i386 libgl1-mesa-dri steam-launcher pulseaudio \
 	--no-install-recommends \
-	&& apt-get install -yq libgl1-mesa-dri:i386 libgl1-mesa-glx:i386 libc6:i386 libnss3:i386 dbus:i386
+	&& apt-get install -yq libgl1-mesa-dri:i386 libgl1-mesa-glx:i386 libc6:i386 libnss3:i386 dbus:i386 \
 	&& rm -rf /var/lib/apt/lists/*
