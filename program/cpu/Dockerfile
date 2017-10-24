@@ -5,7 +5,7 @@ LABEL maintainer "Renwu Gao <gilyou.public@gmail.com>"
 RUN ./run.sh
   
 RUN python3 -m pip install -U pip && \
-    pip3 install --no-cache-dir numpy scipy matplotlib \
+    pip3 install --no-cache-dir numpy scipy matplotlib jupyter \
     scikit-image sklearn pandas networkx \
     git+https://github.com/Theano/Theano.git \
     git+https://github.com/tensorflow/tensorflow.git \
