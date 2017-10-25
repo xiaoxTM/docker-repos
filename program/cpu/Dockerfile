@@ -4,7 +4,7 @@ LABEL maintainer "Renwu Gao <gilyou.public@gmail.com>"
 
 # install necessary package
 RUN apt-get update && apt-get install -y \
-    vim essential-binutils g++ libgtk-3-dev libcanberra-gtk3-module \
+    vim build-essential g++ libgtk-3-dev libcanberra-gtk3-module \
     python3 python3-dev python3-pip python3-tk python3-lxml python3-six python3-setuptools \
     pkg-config libswscale-dev libtbb2 \
     libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libavformat-dev libpq-dev \
