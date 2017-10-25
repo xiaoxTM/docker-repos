@@ -1,0 +1,42 @@
+# docker domain to run
+# - nvidia-docker
+# - standard docker
+DOCKER=nvidia-docker
+WORKDIR=$HOME
+IMAGE="your-docker-image-here"
+TAGS="your-docker-image-tag-here"
+# share socket for GUI
+SOCKET=/tmp/.X11-unix
+
+containerid=0
+COMMAND=exec
+OPTIONS='-it'
+
+ISRUN=`$DOCKER ps | awk '{print $2}' | grep $IMAGE:$TAGS | wc -l`
+
+# if container is not running or not created
+if [[ "$ISRUN" -eq "0" ]]
+then
+    ISSTOP=`$DOCKER ps -a | awk '{print $2}' | grep $IMAGE:$TAGS | wc -l`
+    
+    # if container is not created
+    if [[ "$ISSTOP" -eq "0" ]]
+    then
+        containerid=`$DOCKER run -d --rm -it -e PYTHONPATH=$PYTHONPATH -e DISPLAY=$DISPLAY -h $HOSTNAME -v $WORKDIR:$WORKDIR -v $SOCKET:$SOCKET $IMAGE:$TAGS bash`
+    else
+        # container stopped
+        containerid=`$DOCKER ps -a | grep $IMAGE:$TAGS | awk '{print $1}'`
+        COMMAND=start
+        OPTIONS='-i'
+    fi
+else
+    # container is running
+    containerid=`$DOCKER ps | grep $IMAGE:$TAGS | awk '{print $1}'`
+fi
+
+# authorization
+xhost +local:$containerid
+$DOCKER $COMMAND $OPTIONS $containerid bash -c "cd $PWD;$@"
+$DOCKER stop $containerid
+# un-authorization
+xhost -local:$containerid
