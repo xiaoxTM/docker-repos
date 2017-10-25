@@ -18,3 +18,4 @@ docker stop $containerid
 # un-certificate for better security
 xhost -local:$containerid
 ```
+see `run` for more detailed information
