@@ -22,9 +22,9 @@ services:
     volumes:
       - nextcloud:/var/www/html
     environment:
-      - VIRTUAL_HOST=
-      - LETSENCRYPT_HOST=
-      - LETSENCRYPT_EMAIL=
+      - VIRTUAL_HOST=https://nextcloud-server.com
+      - LETSENCRYPT_HOST=https://nextcloud-server.com
+      - LETSENCRYPT_EMAIL=gilyou.public@gmail.com
       - MYSQL_HOST=db
     env_file:
       - db.env
