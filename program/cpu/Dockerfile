@@ -32,9 +32,9 @@ RUN dpkg --install libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb \
 RUN python3 -m pip install -U pip && \
     pip3 install -U --no-cache-dir numpy scipy matplotlib \
     scikit-image sklearn pandas networkx tensorflow \
- && git+git://github.com/Theano/Theano.git \
-    git+git://github.com/apache/incubator-mxnet.git \
-    git+git://github.com/fchollet/keras.git
+ && pip3 install git+git://github.com/Theano/Theano.git \
+ && pip3 install git+git://github.com/apache/incubator-mxnet.git \
+ && pip3 install git+git://github.com/fchollet/keras.git
 
 WORKDIR /
 RUN git clone https://github.com/opencv/opencv.git \
