@@ -28,7 +28,7 @@ RUN dpkg --install libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb \
  && dpkg --install libjasper-runtime_1.900.1-debian1-2.4+deb8u3_amd64.deb \
  && dpkg --install libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb \
  && dpkg --install atom-amd64.deb
-
+RUN rm *.deb
 RUN python3 -m pip install -U pip && \
     pip3 install -U --no-cache-dir numpy scipy matplotlib graphviz \
     scikit-image sklearn pandas networkx tensorflow \
@@ -69,6 +69,8 @@ RUN make -j8 && make install
 RUN rm -rf /opencv
 RUN rm -rf /opencv_contrib
 
-RUN git clone git clone --recursive https://github.com/apache/incubator-mxnet.git mxnet
+RUN git clone --recursive https://github.com/apache/incubator-mxnet.git mxnet
 WORKDIR mxnet
 RUN make -j8 USE_OPENCV=1 USE_BLAS=openblas
+RUN make install
+RUN rm mxnet
