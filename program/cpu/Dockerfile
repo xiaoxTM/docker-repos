@@ -19,9 +19,9 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # install atom
-ADD https://atom-installer.github.com/v1.21.1/atom-amd64.deb?s=1507768431&ext=.deb
+ADD https://atom-installer.github.com/v1.21.1/atom-amd64.deb?s=1507768431&ext=.deb .
 # install libjasper-dev
-ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb
+ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb .
 
 RUN dpkg --install atom-amd64.deb && dpkg --install libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb
 
