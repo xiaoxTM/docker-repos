@@ -8,7 +8,7 @@ RUN echo "deb  http://deb.debian.org/debian stretch contrib non-free" >> /etc/ap
 
 # install necessary package
 RUN apt-get update && apt-get install -y freeglut3 libgl1-mesa-glx libgl1 libglu1-mesa libglu1 libxmu6 \
-    vim build-essential g++ libgtk-3-dev libcanberra-gtk3-module libjpeg62-turbo \
+    vim build-essential g++ libgtk-3-dev libcanberra-gtk3-module libjpeg62-turbo graphviz libopenblas-dev liblapacke-dev \
     python3 python3-dev python3-pip python3-tk python3-lxml python3-six python3-setuptools \
     pkg-config libswscale-dev libtbb2 libgcrypt20 libnotify4 libxtst6 libnss3 python gvfs-bin xdg-utils libcap2 \
     libtbb-dev libjpeg-dev libpng-dev libtiff-dev libavformat-dev libpq-dev \
@@ -30,10 +30,9 @@ RUN dpkg --install libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb \
  && dpkg --install atom-amd64.deb
 
 RUN python3 -m pip install -U pip && \
-    pip3 install -U --no-cache-dir numpy scipy matplotlib \
+    pip3 install -U --no-cache-dir numpy scipy matplotlib graphviz \
     scikit-image sklearn pandas networkx tensorflow \
  && pip3 install git+git://github.com/Theano/Theano.git \
- && pip3 install git+git://github.com/apache/incubator-mxnet.git \
  && pip3 install git+git://github.com/fchollet/keras.git
 
 WORKDIR /
@@ -46,6 +45,7 @@ RUN cmake -DBUILD_TIFF=ON \
   -DBUILD_opencv_java=OFF \
   -DWITH_CUDA=OFF \
   -DENABLE_AVX=ON \
+  -DWITH_LAPACK=ON \
   -DWITH_OPENGL=ON \
   -DWITH_OPENCL=ON \
   -DWITH_IPP=ON \
@@ -68,3 +68,7 @@ RUN cmake -DBUILD_TIFF=ON \
 RUN make -j8 && make install
 RUN rm -rf /opencv
 RUN rm -rf /opencv_contrib
+
+RUN git clone git clone --recursive https://github.com/apache/incubator-mxnet.git mxnet
+WORKDIR mxnet
+RUN make -j8 USE_OPENCV=1 USE_BLAS=openblas
