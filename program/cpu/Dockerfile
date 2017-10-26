@@ -12,13 +12,13 @@ ADD https://atom-installer.github.com/v1.21.1/atom-amd64.deb?s=1507768431&ext=.d
 ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb .
 ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb .
 ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper-runtime_1.900.1-debian1-2.4+deb8u3_amd64.deb .
-RUN dpkg --install atom-amd64.deb \
- && dpkg --install libjasper-runtime_1.900.1-debian1-2.4+deb8u3_amd64.deb \
- && dpkg --install libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb \
- && dpkg --install libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb
+RUN dpkg --install atom-amd64.deb
+RUN dpkg --install libjasper-runtime_1.900.1-debian1-2.4+deb8u3_amd64.deb
+RUN dpkg --install libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb
+RUN dpkg --install libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb
 
 # install necessary package
-RUN apt-get update && apt-get install -y libjasper1\
+RUN apt-get update && apt-get install -y \
     vim build-essential g++ libgtk-3-dev libcanberra-gtk3-module \
     python3 python3-dev python3-pip python3-tk python3-lxml python3-six python3-setuptools \
     pkg-config libswscale-dev libtbb2 libgcrypt20 libnotify4 libxtst6 libnss3 python gvfs-bin xdg-utils libcap2 \
