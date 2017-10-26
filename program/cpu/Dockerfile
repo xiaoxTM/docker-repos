@@ -4,7 +4,7 @@ LABEL maintainer "Renwu Gao <gilyou.public@gmail.com>"
 
 # add some repositories
 RUN echo "deb  http://deb.debian.org/debian stretch contrib non-free" >> /etc/apt/sources.list
-RUN echo "deb-src  http://deb.debian.org/debian stretch contrib non-free" >> /etc/apt/sources.list
+ && echo "deb-src  http://deb.debian.org/debian stretch contrib non-free" >> /etc/apt/sources.list
 
 # install necessary package
 RUN apt-get update && apt-get install -y freeglut3 libgl1-mesa-glx libgl1 libglu1-mesa libglu1 libxmu6 \
@@ -24,17 +24,17 @@ ADD https://atom-installer.github.com/v1.21.1/atom-amd64.deb?s=1507768431&ext=.d
 ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb .
 ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb .
 ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper-runtime_1.900.1-debian1-2.4+deb8u3_amd64.deb .
-RUN dpkg --install libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb
-RUN dpkg --install libjasper-runtime_1.900.1-debian1-2.4+deb8u3_amd64.deb
-RUN dpkg --install libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb
-RUN dpkg --install atom-amd64.deb
+RUN dpkg --install libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb \
+ && dpkg --install libjasper-runtime_1.900.1-debian1-2.4+deb8u3_amd64.deb \
+ && dpkg --install libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb \
+ && dpkg --install atom-amd64.deb
 
 RUN python3 -m pip install -U pip && \
     pip3 install -U --no-cache-dir numpy scipy matplotlib \
     scikit-image sklearn pandas networkx tensorflow \
- && git+https://github.com/Theano/Theano.git \
-    git+https://github.com/apache/incubator-mxnet.git \
-    git+https://github.com/fchollet/keras.git
+ && git+git://github.com/Theano/Theano.git \
+    git+git://github.com/apache/incubator-mxnet.git \
+    git+git://github.com/fchollet/keras.git
 
 WORKDIR /
 RUN git clone https://github.com/opencv/opencv.git \
