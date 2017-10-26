@@ -6,6 +6,18 @@ LABEL maintainer "Renwu Gao <gilyou.public@gmail.com>"
 RUN echo "deb  http://deb.debian.org/debian stretch contrib non-free" >> /etc/apt/sources.list
 RUN echo "deb-src  http://deb.debian.org/debian stretch contrib non-free" >> /etc/apt/sources.list
 
+# install necessary package
+RUN apt-get update && apt-get install -y \
+    vim build-essential g++ libgtk-3-dev libcanberra-gtk3-module libjpeg62-turbo \
+    python3 python3-dev python3-pip python3-tk python3-lxml python3-six python3-setuptools \
+    pkg-config libswscale-dev libtbb2 libgcrypt20 libnotify4 libxtst6 libnss3 python gvfs-bin xdg-utils libcap2 \
+    libtbb-dev libjpeg-dev libpng-dev libtiff-dev libavformat-dev libpq-dev \
+    automake autoconf libtool cmake git gconf2 gconf-service libgtk2.0-dev libudev1 \
+    protobuf-compiler vim emacs rsync software-properties-common unzip libfreetype6-dev libzmq3-dev \
+    --no-install-recommends \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+    
 # install atom
 ADD https://atom-installer.github.com/v1.21.1/atom-amd64.deb?s=1507768431&ext=.deb .
 # install libjasper-dev
@@ -16,19 +28,6 @@ RUN dpkg --install libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb
 RUN dpkg --install libjasper-runtime_1.900.1-debian1-2.4+deb8u3_amd64.deb
 RUN dpkg --install libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb
 RUN dpkg --install atom-amd64.deb
-
-# install necessary package
-RUN apt-get update && apt-get install -y \
-    vim build-essential g++ libgtk-3-dev libcanberra-gtk3-module \
-    python3 python3-dev python3-pip python3-tk python3-lxml python3-six python3-setuptools \
-    pkg-config libswscale-dev libtbb2 libgcrypt20 libnotify4 libxtst6 libnss3 python gvfs-bin xdg-utils libcap2 \
-    libtbb-dev libjpeg-dev libpng-dev libtiff-dev libavformat-dev libpq-dev \
-    automake autoconf libtool cmake git gconf2 gconf-service libgtk2.0-dev libudev1 \
-    protobuf-compiler vim emacs rsync software-properties-common unzip libfreetype6-dev libzmq3-dev \
-    --no-install-recommends \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
 
 RUN python3 -m pip install -U pip && \
     pip3 install -U --no-cache-dir numpy scipy matplotlib \
