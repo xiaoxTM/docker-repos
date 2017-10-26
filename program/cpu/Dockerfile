@@ -13,8 +13,8 @@ ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper-dev_1.900.1-deb
 ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb .
 ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper-runtime_1.900.1-debian1-2.4+deb8u3_amd64.deb .
 RUN dpkg --install atom-amd64.deb \
- && dpkg --install libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb \
  && dpkg --install libjasper-runtime_1.900.1-debian1-2.4+deb8u3_amd64.deb \
+ && dpkg --install libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb \
  && dpkg --install libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb
 
 # install necessary package
