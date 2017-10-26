@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     python3 python3-dev python3-pip python3-tk python3-lxml python3-six python3-setuptools \
     pkg-config libswscale-dev libtbb2 libgcrypt20 libnotify4 libxtst6 libnss3 python gvfs-bin xdg-utils libcap2 \
     libtbb-dev libjpeg-dev libpng-dev libtiff-dev libavformat-dev libpq-dev \
-    automake autoconf libtool cmake git gconf2 gconf-service libgtk2-0.0 libudev1 \
+    automake autoconf libtool cmake git gconf2 gconf-service libgtk2.0-dev libudev1 \
     protobuf-compiler vim emacs rsync software-properties-common unzip libfreetype6-dev libzmq3-dev \
     --no-install-recommends \
     && apt-get clean \
