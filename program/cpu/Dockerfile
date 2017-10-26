@@ -7,7 +7,7 @@ RUN echo "deb  http://deb.debian.org/debian stretch contrib non-free" >> /etc/ap
 RUN echo "deb-src  http://deb.debian.org/debian stretch contrib non-free" >> /etc/apt/sources.list
 
 # install necessary package
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y freeglut3 libgl1-mesa-glx libgl1 libglu1-mesa libglu1 libxmu6 \
     vim build-essential g++ libgtk-3-dev libcanberra-gtk3-module libjpeg62-turbo \
     python3 python3-dev python3-pip python3-tk python3-lxml python3-six python3-setuptools \
     pkg-config libswscale-dev libtbb2 libgcrypt20 libnotify4 libxtst6 libnss3 python gvfs-bin xdg-utils libcap2 \
