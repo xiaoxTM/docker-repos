@@ -3,8 +3,8 @@ ENV DEBIAN_FRONTEND noninteractive
 LABEL maintainer "Renwu Gao <gilyou.public@gmail.com>"
 
 # add some repositories
-RUN echo "deb  http://deb.debian.org/debian stretch main contrib non-free" >> /etc/apt/sources.list
-RUN echo "deb-src  http://deb.debian.org/debian stretch main contrib non-free" >> /etc/apt/sources.list
+RUN echo "deb  http://deb.debian.org/debian stretch contrib non-free" >> /etc/apt/sources.list
+RUN echo "deb-src  http://deb.debian.org/debian stretch contrib non-free" >> /etc/apt/sources.list
 
 # install necessary package
 RUN apt-get update && apt-get install -y \
