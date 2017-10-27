@@ -1,29 +1,39 @@
-
 FROM debian:latest
 ENV DEBIAN_FRONTEND noninteractive
 LABEL maintainer "Renwu Gao <gilyou.public@gmail.com>"
 
+# add some repositories
+RUN echo "deb  http://deb.debian.org/debian stretch contrib non-free" >> /etc/apt/sources.list \
+ && echo "deb-src  http://deb.debian.org/debian stretch contrib non-free" >> /etc/apt/sources.list
+
 # install necessary package
-RUN apt-get update && apt-get install -y \
-    vim essential-binutils g++ libgtk-3-dev libcanberra-gtk3-module \
-    python3-dev python3-pip pkg-config libswscale-dev libtbb2 \
-    libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libavformat-dev libpq-dev \
-    automake autoconf libtool cmake git wget \
+RUN apt-get update && apt-get install -y freeglut3 libgl1-mesa-glx libgl1 libglu1-mesa libglu1 libxmu6 \
+    vim build-essential g++ libgtk-3-dev libcanberra-gtk3-module libjpeg62-turbo graphviz libopenblas-dev liblapacke-dev \
+    python3 python3-dev python3-pip python3-tk python3-lxml python3-six python3-setuptools \
+    pkg-config libswscale-dev libtbb2 libgcrypt20 libnotify4 libxtst6 libnss3 python gvfs-bin xdg-utils libcap2 \
+    libtbb-dev libjpeg-dev libpng-dev libtiff-dev libavformat-dev libpq-dev \
+    automake autoconf libtool cmake git gconf2 gconf-service libgtk2.0-dev libudev1 \
     protobuf-compiler vim emacs rsync software-properties-common unzip libfreetype6-dev libzmq3-dev \
     --no-install-recommends \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
+    
 # install atom
-RUN wget https://github-production-release-asset-2e65be.s3.amazonaws.com/3228505/4d6265d0-aeaa-11e7-97a3-60cb2c75b6c0?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20171023%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20171023T232957Z&X-Amz-Expires=300&X-Amz-Signature=b95750bcd2c9ef2d8d995db43e1ab770e6c3a9a8d9889d9044ea2d9fa0fea6aa&X-Amz-SignedHeaders=host&actor_id=11028486&response-content-disposition=attachment%3B%20filename%3Datom-amd64.deb&response-content-type=application%2Foctet-stream
+ADD https://atom-installer.github.com/v1.21.1/atom-amd64.deb?s=1507768431&ext=.deb .
+# install libjasper-dev
+ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb .
+ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb .
+ADD http://ftp.br.debian.org/debian/pool/main/j/jasper/libjasper-runtime_1.900.1-debian1-2.4+deb8u3_amd64.deb .
+RUN dpkg --install libjasper1_1.900.1-debian1-2.4+deb8u3_amd64.deb \
+ && dpkg --install libjasper-runtime_1.900.1-debian1-2.4+deb8u3_amd64.deb \
+ && dpkg --install libjasper-dev_1.900.1-debian1-2.4+deb8u3_amd64.deb \
  && dpkg --install atom-amd64.deb
-  
+RUN rm *.deb
 RUN python3 -m pip install -U pip && \
-    pip3 install -U --no-cache-dir numpy scipy matplotlib \
-    scikit-image sklearn pandas networkx \
-    git+https://github.com/Theano/Theano.git \
-    tensorflow-gpu \
-    git+https://github.com/apache/incubator-mxnet.git \
-    git+https://github.com/fchollet/keras.git
+    pip3 install -U --no-cache-dir numpy scipy matplotlib graphviz \
+    scikit-image sklearn pandas networkx tensorflow-gpu mxnet-cu80 \ # for different cuda version, change it to cu<cuda-version>
+ && pip3 install git+git://github.com/Theano/Theano.git \
+ && pip3 install git+git://github.com/fchollet/keras.git
 
 WORKDIR /
 RUN git clone https://github.com/opencv/opencv.git \
@@ -35,6 +45,7 @@ RUN cmake -DBUILD_TIFF=ON \
   -DBUILD_opencv_java=OFF \
   -DWITH_CUDA=ON \
   -DENABLE_AVX=ON \
+  -DWITH_LAPACK=ON \
   -DWITH_OPENGL=ON \
   -DWITH_OPENCL=ON \
   -DWITH_IPP=ON \
@@ -47,7 +58,7 @@ RUN cmake -DBUILD_TIFF=ON \
   -DWITH_GTK3=ON \
   -DPYTHON_INCLUDE_DIRS=$(python -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
   -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/`ls -l /usr/lib/x86_64-linux-gnu | awk '{print $9}' | grep libpython2.*` \
-  -DCMAKE_INSTALL_PREFIX=$(python3 -c "import sys; print(sys.prefix)") \
+  -DCMAKE_INSTALL_PREFIX=/usr/local \
   -DPYTHON_DEFAULT_EXECUTABLE=$(which python3) \
   -DPYTHON3_EXECUTABLE=$(which python3) \
   -DPYTHON3_INCLUDE_DIRS=$(python3 -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
