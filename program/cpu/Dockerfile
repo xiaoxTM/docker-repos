@@ -32,8 +32,9 @@ RUN rm *.deb
 RUN python3 -m pip install -U pip && \
     pip3 install -U --no-cache-dir numpy scipy matplotlib graphviz \
     scikit-image sklearn pandas networkx tensorflow mxnet \
- && pip3 install git+git://github.com/Theano/Theano.git \
- && pip3 install git+git://github.com/fchollet/keras.git
+ && pip3 install --upgrade git+git://github.com/Theano/Theano.git \
+ && pip3 install --upgrade git+git://github.com/fchollet/keras.git \
+ && pip3 install --upgrade git+git://github.com/Lasagne/Lasagne.git
 
 WORKDIR /
 RUN git clone https://github.com/opencv/opencv.git \
