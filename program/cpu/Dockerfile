@@ -15,9 +15,8 @@ RUN apt-get update && apt-get install -y freeglut3 libgl1-mesa-glx libgl1 libglu
     && rm -rf /var/lib/apt/lists/*
     
 # install atom
-ADD https://atom-installer.github.com/v1.21.1/atom-amd64.deb?s=1507768431&ext=.deb . \
- && dpkg --install atom-amd64.deb
-RUN rm *.deb
+ADD https://atom-installer.github.com/v1.21.1/atom-amd64.deb?s=1507768431&ext=.deb .
+RUN dpkg --install atom-amd64.deb && rm atom-amd64.deb
 RUN python3 -m pip install -U pip && \
     pip3 install -U --no-cache-dir numpy scipy matplotlib graphviz \
     scikit-image sklearn pandas networkx tensorflow mxnet \
